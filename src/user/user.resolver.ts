@@ -5,7 +5,7 @@ import { CreateRegisterInput } from './dto/register.input';
 import { LoginResponse } from './dto/login.response';
 import { RegisterResponse } from './dto/register.response';
 import { UnauthorizedException, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { UserType } from './dto/user.type';
 
 @Resolver()

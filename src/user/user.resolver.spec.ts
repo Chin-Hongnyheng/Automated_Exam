@@ -1,18 +1,28 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UserResolver } from './user.resolver';
+import { UserService } from './user.service';
+import { JwtService } from '@nestjs/jwt';
 
-describe('UserResolver', () => {
-  let resolver: UserResolver;
+describe('UserService', () => {
+  let service: UserService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [UserResolver],
+      providers: [
+        UserService,
+        {
+          provide: JwtService,
+          useValue: {
+            sign: jest.fn().mockReturnValue('mock-token'),
+            verify: jest.fn(),
+          },
+        },
+      ],
     }).compile();
 
-    resolver = module.get<UserResolver>(UserResolver);
+    service = module.get<UserService>(UserService);
   });
 
   it('should be defined', () => {
-    expect(resolver).toBeDefined();
+    expect(service).toBeDefined();
   });
 });
