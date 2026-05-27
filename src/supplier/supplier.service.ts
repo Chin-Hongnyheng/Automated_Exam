@@ -1,13 +1,13 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { v4 as uuidv4 } from 'uuid';
+import * as uuid from 'uuid';
 import { Supplier } from './supplier.schema';
 import { CreateSupplierInput } from './dto/create-supplier.input';
 import { UpdateSupplierInput } from './dto/update-supplier.input';
 
+const { v4: uuidv4 } = require('uuid');
 @Injectable()
 export class SupplierService {
   private suppliers: Supplier[] = [];
-
   findAll(): Supplier[] {
     return this.suppliers;
   }

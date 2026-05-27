@@ -4,7 +4,8 @@ import { JwtService } from '@nestjs/jwt';
 import { User } from './user.schema';
 import { CreateLoginInput } from './dto/login.input';
 import { CreateRegisterInput } from './dto/register.input';
-import { v4 as uuidv4 } from 'uuid';
+
+const { v4: uuidv4 } = require('uuid');
 
 @Injectable()
 export class UserService {

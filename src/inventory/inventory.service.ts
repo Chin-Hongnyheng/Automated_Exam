@@ -1,5 +1,4 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { v4 as uuidv4 } from 'uuid';
 import { InventoryItem } from './inventory.schema';
 import { CreateInventoryInput } from './dto/create-inventory.input';
 import { UpdateInventoryInput } from './dto/update-inventory.input';
@@ -7,7 +6,7 @@ import { AdjustStockInput } from './dto/adjust-stock.input';
 import { PubSub } from 'graphql-subscriptions';
 
 export const pubSub = new PubSub();
-
+const { v4: uuidv4 } = require('uuid');
 @Injectable()
 export class InventoryService {
   private items: InventoryItem[] = [];
