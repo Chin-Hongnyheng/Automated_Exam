@@ -1,0 +1,54 @@
+name: Run Tests
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm run test
+        env:
+          JWT_ACCESS_SECRET: ${{ secrets.JWT_ACCESS_SECRET }}
+          JWT_REFRESH_SECRET: ${{ secrets.JWT_REFRESH_SECRET }}
+
+      - name: Get committer email
+        if: always()
+        id: committer
+        run: echo "email=$(git log -1 --pretty=format:'%ae')" >> $GITHUB_OUTPUT
+
+      - name: Send email notification
+        if: always()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: 'Test Result - ${{ job.status }} - ${{ github.repository }}'
+          to: ${{ steps.committer.outputs.email }},srengty@gmail.com
+          from: ${{ secrets.MAIL_USERNAME }}
+          body: |
+            Repository: ${{ github.repository }}
+            Branch: ${{ github.ref_name }}
+            Commit: ${{ github.sha }}
+            Committer: ${{ github.actor }}
+            Status: ${{ job.status }}
+
+            Check details at:
+            ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
