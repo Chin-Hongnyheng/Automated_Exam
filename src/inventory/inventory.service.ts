@@ -6,7 +6,8 @@ import { AdjustStockInput } from './dto/adjust-stock.input';
 import { PubSub } from 'graphql-subscriptions';
 
 export const pubSub = new PubSub();
-const { v4: uuidv4 } = require('uuid');
+const uuidv4 = () =>
+  Math.random().toString(36).substring(2, 15) + Date.now().toString(36);
 @Injectable()
 export class InventoryService {
   private items: InventoryItem[] = [];

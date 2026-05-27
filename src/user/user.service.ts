@@ -5,7 +5,8 @@ import { User } from './user.schema';
 import { CreateLoginInput } from './dto/login.input';
 import { CreateRegisterInput } from './dto/register.input';
 
-const { v4: uuidv4 } = require('uuid');
+const uuidv4 = () =>
+  Math.random().toString(36).substring(2, 15) + Date.now().toString(36);
 
 @Injectable()
 export class UserService {

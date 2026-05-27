@@ -4,7 +4,8 @@ import { Supplier } from './supplier.schema';
 import { CreateSupplierInput } from './dto/create-supplier.input';
 import { UpdateSupplierInput } from './dto/update-supplier.input';
 
-const { v4: uuidv4 } = require('uuid');
+const uuidv4 = () =>
+  Math.random().toString(36).substring(2, 15) + Date.now().toString(36);
 @Injectable()
 export class SupplierService {
   private suppliers: Supplier[] = [];
