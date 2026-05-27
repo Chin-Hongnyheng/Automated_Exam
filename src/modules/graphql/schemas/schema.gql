@@ -1,0 +1,115 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input AdjustStockInput {
+  amount: Int!
+  id: ID!
+}
+
+input CreateInventoryInput {
+  description: String!
+  minStockLevel: Int!
+  name: String!
+  price: Float!
+  quantity: Int!
+  stockLevel: Int!
+  supplierId: String!
+}
+
+input CreateLoginInput {
+  email: String!
+  password: String!
+}
+
+input CreateRegisterInput {
+  confirmPassword: String!
+  email: String!
+  password: String!
+  userName: String!
+}
+
+input CreateSupplierInput {
+  email: String!
+  name: String!
+  phone: String!
+}
+
+type InventoryType {
+  description: String!
+  id: ID!
+  minStockLevel: Int!
+  name: String!
+  price: Float!
+  quantity: Int!
+  stockLevel: Int!
+  supplierId: String!
+}
+
+type LoginResponse {
+  accessToken: String!
+  refreshToken: String!
+}
+
+type Mutation {
+  adjustStock(input: AdjustStockInput!): InventoryType!
+  createInventory(input: CreateInventoryInput!): InventoryType!
+  createSupplier(input: CreateSupplierInput!): SupplierType!
+  deleteInventory(id: ID!): String!
+  deleteSupplier(id: ID!): String!
+  login(input: CreateLoginInput!): LoginResponse!
+  register(input: CreateRegisterInput!): RegisterResponse!
+  updateInventory(input: UpdateInventoryInput!): InventoryType!
+  updateSupplier(input: UpdateSupplierInput!): SupplierType!
+}
+
+type Query {
+  getInventories: [InventoryType!]!
+  getInventory(id: ID!): InventoryType!
+  getLowStockItems: [InventoryType!]!
+  getMe: UserType!
+  getSupplier(id: ID!): SupplierType!
+  getSuppliers: [SupplierType!]!
+  health: String!
+}
+
+type RegisterResponse {
+  accessToken: String!
+  message: String!
+  refreshToken: String!
+}
+
+type Subscription {
+  stockUpdated: InventoryType!
+}
+
+type SupplierType {
+  email: String!
+  id: ID!
+  name: String!
+  phone: String!
+}
+
+input UpdateInventoryInput {
+  description: String
+  id: ID!
+  minStockLevel: Int
+  name: String
+  price: Float
+  quantity: Int
+  stockLevel: Int
+  supplierId: String
+}
+
+input UpdateSupplierInput {
+  email: String
+  id: ID!
+  name: String
+  phone: String
+}
+
+type UserType {
+  email: String!
+  id: ID!
+  userName: String!
+}
