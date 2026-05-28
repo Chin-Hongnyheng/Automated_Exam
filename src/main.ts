@@ -6,7 +6,7 @@ async function bootstrap() {
 
   // ADD THIS LINE: This allows your Vue app to talk to the server
   app.enableCors({
-    origin: 'http://localhost:5173', // Your Vue dev server URL
+    origin: '*', // Your Vue dev server URL
     credentials: true,
   });
 
